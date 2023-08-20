@@ -7,7 +7,7 @@ def take_recipe():
 
   recipe = {'name': name, 'cooking_time': cooking_time, 'ingredients': ingredients}
 
-  recipe['Difficulty'] = calc_difficulty(recipe)
+  recipe['difficulty'] = calc_difficulty(recipe)
 
   return recipe
 
@@ -27,7 +27,7 @@ def calc_difficulty(recipe):
 recipes_list = []
 all_ingredients = []
 
-filename = input('Enter your recipe filename: ')
+filename = input('Enter a filename for your recipes: ')
 
 try:
   recipes_file = open(filename, 'rb')
@@ -39,7 +39,7 @@ except:
   print('Unexpected error. Creating a new file. ')
   data = {'recipes_list': [], 'all_ingredients': []}
 else:
-  recipes_files.close()
+  recipes_file.close()
 finally:
   recipes_list = data['recipes_list']
   all_ingredients = data['all_ingredients']
@@ -58,6 +58,6 @@ for i in range(num):
 
 data = {'recipes_list': recipes_list, 'all_ingredients': all_ingredients}
 
-new_file_name = input('Enter a name for your file.')
-with open(new_file_name, 'wb') as f:
+#new_file_name = input('Enter a name for your file: ')
+with open(filename, 'wb') as f:
   pickle.dump(data, f)

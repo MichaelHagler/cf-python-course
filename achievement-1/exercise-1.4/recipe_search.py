@@ -10,6 +10,9 @@ def search_ingredients(data):
   ingredients_list = data['all_ingredients']
   index_of_ingredient = list(enumerate(ingredients_list, 1))
 
+  for ingredient in index_of_ingredient:
+    print('No.', ingredient[0], ' - ', ingredient[1])
+
   try:
     chosen_ingredient = int(input('Enter the number of your chosen ingredient: '))
     index = chosen_ingredient - 1
