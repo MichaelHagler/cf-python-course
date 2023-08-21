@@ -1,7 +1,7 @@
 class Recipe:
   all_ingredients = []
 
-  def __init__(self, name, ingredients, cooking_time):
+  def __init__(self, name):
     self.name = name
     self.ingredients = []
     self.cooking_time = int(0)
@@ -35,7 +35,7 @@ class Recipe:
   def update_all_ingredients(self):
     for ingredient in self.ingredients:
       if ingredient not in self.all_ingredients:
-        self.all_ingredients.append(ingredients)
+        self.all_ingredients.append(ingredient)
   
   def recipe_search(self, recipes_list, ingredient):
     data = recipes_list
@@ -68,12 +68,11 @@ class Recipe:
     self.cooking_time = cooking_time
 
   def __str__(self):
-    output = 'Name: ' + self.name + '\n'
-    'Cooking Time: ' + str(self.cooking_time) + '\n'
-    'Ingredients: ' + str(self.ingredients) + '\n'
-    'Difficulty: ' + str(self.difficulty) + '\n'
+    output = "Name: " + self.name + \
+    "\nCooking Time (in minutes): " + str(self.cooking_time) + \
+    "\nIngredients: " + str(self.ingredients) + \
+    "\nDifficulty: " + str(self.difficulty) + '\n'
     for ingredient in self.ingredients:
-      output =+ '- ' + ingredient + '\n'
       return output
 
   
@@ -87,5 +86,31 @@ tea.get_difficulty()
 
 recipes_list.append(tea)
 
+coffee = Recipe('Coffee')
+coffee.add_ingredients('Coffee Powder', 'Water', 'Milk')
+coffee.set_cooking_time(5)
+coffee.get_difficulty()
+
+recipes_list.append(coffee)
+
+cake = Recipe('Cake')
+cake.add_ingredients('Flour', 'Sugar', 'Eggs', 'Milk', 'Butter', 'Vanilla Essence')
+cake.set_cooking_time(50)
+cake.get_difficulty()
+
+recipes_list.append(cake)
+
+banana_smoothie = Recipe('Banana Smoothie')
+banana_smoothie.add_ingredients('Bananas', 'Milk', 'Peanut Butter', 'Sugar', 'Ice Cubes')
+banana_smoothie.set_cooking_time(5)
+banana_smoothie.get_difficulty()
+
+recipes_list.append(banana_smoothie)
+
 for recipe in recipes_list:
   print(recipe)
+
+print('Searching Recipes' + '\n')
+tea.recipe_search(recipes_list, 'Water')
+cake.recipe_search(recipes_list, 'Sugar')
+banana_smoothie.recipe_search(recipes_list, 'Bananas')
