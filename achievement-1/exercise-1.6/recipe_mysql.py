@@ -21,22 +21,24 @@ difficulty VARCHAR(20)
 def main_menu(conn, cursor):
   choice = ''
   while (choice != 'quit'):
-    print('Main Menu')
     print('\n======================')
+    print('Main Menu')
     print('Pick a choice:')
     print('   1. Create a new recipe')
     print('   2. Search for a recipe by ingredient')
     print('   3. Update an existing recipe')
     print('   4. Delete a recipe')
+    print("Type 'quit' to exit")
+    choice = input('\nYour choice: ')
 
-  if choice == '1':
-    create_recipe(conn, cursor) 
-  elif choice =='2':
-    search_recipe(conn, cursor)
-  elif choice == '3':
-    update_recipe(conn, cursor)
-  elif choice == '4':
-    delete_recipe(conn, cursor)
+    if choice == '1':
+      create_recipe(conn, cursor) 
+    elif choice =='2':
+      search_recipe(conn, cursor)
+    elif choice == '3':
+      update_recipe(conn, cursor)
+    elif choice == '4':
+      delete_recipe(conn, cursor)
 
 
 def create_recipe(conn, cursor):
@@ -85,7 +87,7 @@ def search_recipe(conn, cursor):
   print('\nIngredient list:')
 
   for index, tup in enumerate(all_ingredients_list):
-    print(str(tup[0]) + 1 '. ' + tup[1])
+    print(str(tup[0] + 1) + '. ' + tup[1])
 
   try:
     ingredient_searched_num = input('\nEnter the number from the ingredient list above: ')
@@ -106,8 +108,8 @@ def search_recipe(conn, cursor):
     for row in recipe_with_ingredient:
       print('\nID: ', row[0])
       print('Name: ', row[1])
-      print('Cooking Time: ', row[2])
-      print('Ingredients: ', row[3])
+      print('Ingredients: ', row[2])
+      print('Cooking Time: ', row[3])
       print('Difficulty: ', row[4])
 
 def update_recipe(conn, cursor):
@@ -156,8 +158,8 @@ def update_recipe(conn, cursor):
 
 def delete_recipe(conn, cursor):
   view_all_recipes(conn, cursor)
-  recipe_id_for_deletion = input('\nEnter ID of the recipe you want to delete: ')
-  cursor.execute('DELETE FROM Recipes WHERE id = (%s)', (recipe_id_for_deletion))
+  recipe_id_for_deletion = (input('\nEnter ID of the recipe you want to delete: '))
+  cursor.execute('DELETE FROM Recipes WHERE id = (%s)', (recipe_id_for_deletion, ))
 
   conn.commit()
   print('\nRecipe deleted')
@@ -171,10 +173,10 @@ def view_all_recipes(conn, cursor):
 
   for row in results:
     print('\nID: ', row[0])
-      print('Name: ', row[1])
-      print('Cooking Time: ', row[2])
-      print('Ingredients: ', row[3])
-      print('Difficulty: ', row[4])
+    print('Name: ', row[1])
+    print('Ingredients: ', row[2])
+    print('Cooking Time: ', row[3])
+    print('Difficulty: ', row[4])
 
 
 
