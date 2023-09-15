@@ -90,7 +90,7 @@ def create_recipe():
   recipe_entry = Recipe(
     name = name,
     cooking_time = int(cooking_time),
-    ingredients = recipe_ingredients_str,
+    ingredients = recipe_ingredient_str,
     difficulty = difficulty
   )
 
@@ -193,7 +193,8 @@ def edit_recipe():
 
     print(session.query(Recipe).with_entities(Recipe.id).all())
 
-    recipes_id_tup_list = session.query(Recipe).with_entities(Recipe.id).all()
+    recipes_id_tup_list = session.query(
+      Recipe).with_entities(Recipe.id).all()
     recipes_id_list = []
 
     for recipe_tup in recipes_id_tup_list:
@@ -206,12 +207,13 @@ def edit_recipe():
       print('Not in the ID list, please try again later')
     else:
       print('continuing')
-      recipe_to_edit = session.query(Recipe).filter(Recipe.id == recipe_id_for_edit_.one())
+      recipe_to_edit = session.query(Recipe).filter(
+        Recipe.id == recipe_id_for_edit).one()
 
       print('\nWARNING: You are about to edit the following recipe: ')
       print(recipe_to_edit)
       column_for_update = int(input(
-        '\nEnter the corresponding number to the item you want to edit: '
+        '\nEnter the corresponding number to the item you want to edit(1. name, 2. cooking_time, 3. ingredients): '
       ))
       updated_value = input('\nEnter your edit here: ')
       print('Choice: ', updated_value)
@@ -238,12 +240,11 @@ def edit_recipe():
         session.commit()
 
       else:
-        print('Wrong input, please try again')
+        print("Wrong input, please try again.")
       updated_difficulty = calc_difficulty(
-        recipe_id_for_edit.cooking_time, recipe_id_for_edit.ingredients
-      )
-      print('updated_difficulty: ', updated_difficulty)
-      recipe_id_for_edit.difficulty = updated_difficulty
+        recipe_to_edit.cooking_time, recipe_to_edit.ingredients)
+      print("updated_difficulty: ", updated_difficulty)
+      recipe_to_edit.difficulty = updated_difficulty
       session.commit()
       print('Update saved!')
 
@@ -275,7 +276,7 @@ def delete_recipe():
     else:
       return None
 
-def main_menu(conn, cursor):
+def main_menu():
   choice = ''
   while (choice != 'quit'):
     print('\n======================')
